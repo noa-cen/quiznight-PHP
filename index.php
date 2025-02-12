@@ -1,7 +1,7 @@
 <?php
 
 $pageTitle = "QuizNight ! - Accueil";
-require_once(__DIR__ . "/views/header.php");
+require_once 'views\header.php';
 
 ?>
 
@@ -18,11 +18,13 @@ require_once(__DIR__ . "/views/header.php");
             </article>
         </article>
 
-        <img src="./assets/img/logo.png" alt="Point d'interrogation" class="questionMark">
+        <img src="assets\img\logo.png" alt="Point d'interrogation" class="questionMark">
     </section>
 </main>
 
-    <?php require_once(__DIR__ . "/views/footer.php"); ?>
+<?php 
+require_once 'views\footer.php'; 
+?>
 </body>
 
 <!-- <script>

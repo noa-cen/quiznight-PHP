@@ -1,7 +1,7 @@
 <?php
 
-require_once(__DIR__ . "/../models/DatabaseConnection.php");
-require_once(__DIR__ . "/../models/Session.php");
+require_once "C:\wamp64\www\quiznight-PHP\models\DatabaseConnection.php";
+require_once "C:\wamp64\www\quiznight-PHP\models/Session.php";
 
 $connexion = new DatabaseConnection; 
 $pdo = $connexion->getPdo();
@@ -27,8 +27,8 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
     
-    <link rel="stylesheet" href="/projets/quiznight/assets/style.css?v=<?php echo time(); ?>">
-    <link rel="icon" href="/projets/quiznight/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/style.css?v=<?php echo time(); ?>">
+    <link rel="icon" href="assets\img\favicon.ico" type="image/x-icon">
     <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
@@ -36,7 +36,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <nav class="navbar">
 
         <article class="My Website">
-            <a href="/projets/quiznight/index.php" 
+            <a href="quiznigh-PHP/index.php" 
             aria-label="Accéder à l'accueil du site"><h1>QuizNight !</h1></a>
         </article>
 
@@ -50,16 +50,11 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
                 <li class="connection"><a href="?action=logout" 
                 aria-label="Me déconnecter">Me déconnecter</a></li>
                 <?php else: ?>
-                    <li class="connection"><a href="#" 
+                    <li class="connection"><a href="/quiznight-PHP/views/user_login.php"
                 aria-label="Accéder à me connecter">Me connecter</a></li>
                 <?php endif; ?>
             </ul>
         </article>
-
-        <!-- <article class="responsive">
-            <input type="checkbox" id="menu-hamburger">
-            <label for="menu-hamburger"></label>
-        </article> -->
 
     </nav>
 </header>
