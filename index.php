@@ -25,12 +25,4 @@ require_once(__DIR__ . "/views/header.php");
     <?php require_once(__DIR__ . "/views/footer.php"); ?>
 </body>
 
-<!-- <script>
-    const menuHamburger = document.querySelector("#menu-hamburger")
-    const navLinks = document.querySelector(".nav-link")
-
-    menuHamburger.addEventListener("click",()=>{
-    navLinks.classList.toggle("mobile-menu")
-    })
-</script> -->
 </html>
