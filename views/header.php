@@ -27,8 +27,8 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
     
-    <link rel="stylesheet" href="/projets/quiznight/assets/style.css?v=<?php echo time(); ?>">
-    <link rel="icon" href="/projets/quiznight/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/quiznight-PHP/assets/style.css?v=<?php echo time(); ?>">
+    <link rel="icon" href="quiznight-PHP/assets/img/favicon.ico" type="image/x-icon">
     <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
@@ -36,7 +36,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <nav class="navbar">
 
         <article class="My Website">
-            <a href="/projets/quiznight/index.php" 
+            <a href="quiznight-PHP/index.php" 
             aria-label="Accéder à l'accueil du site"><h1>QuizNight !</h1></a>
         </article>
 
