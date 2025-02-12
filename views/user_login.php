@@ -4,13 +4,10 @@ $pageTitle = "QuizNight ! - login";
 require_once "header.php";
 require_once  '../models/User.php';
 
-?>
-
-<?php
 $errors=[];
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    $email = filter_input(INPUT_POST, 'email, FILTER_VALIDATE_EMAIL');
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = $_POST['password'];
 
     if (!$email || empty($password)){
@@ -23,13 +20,13 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         if ($loggedUser) {
             $_SESSION['user_id'] = $loggedUser['id'];
             $_SESSION['username'] = $loggedUser['username'];
-            header("Location: dashboard.php");
+            header("Location: ../index.php");
             exit;
         } else {
             $errors[] = "Email ou mot de passe incorrect.";
         }
         } catch (Exception $e) {
-        $errors[] = "Une erreur est survenue : " . $e->getMessage();
+        $errors[] = "Une erreur est survenue : " . htmlspecialchars($e->getMessage());
         }
     }
 }
@@ -45,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             </ul>
         <?php endif; ?>
 
-        <form action="login.php" method="post">
+        <form action="user_login.php" method="post">
             <label for="email">Email :</label>
             <input type="email" name="email" required>
             
@@ -54,5 +51,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
             <button type="submit">Se connecter</button>
         </form>
+
+        <a href="user_register.php" class="register-link">Pas encore inscrit ? C'est ici !</a>
     </body>
 </html>
