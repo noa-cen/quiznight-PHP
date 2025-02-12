@@ -5,6 +5,10 @@ require_once(__DIR__ . "/views/header.php");
 ?>
 
     <?php
+    if (!isset($_SESSION['user_id'])) {
+        die("Erreur : Aucun utilisateur connecté.");
+    }
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['quiz_name'], $_FILES['quiz_image'], $_POST['num_questions'])) {
             $quizName = htmlspecialchars($_POST['quiz_name']);
@@ -20,7 +24,7 @@ require_once(__DIR__ . "/views/header.php");
 
             // Vérification du format
             if (!in_array($fileExtension, $allowedExtensions)) {
-                echo "Format d’image non autorisé. Veuillez choisir un fichier JPG, JPEG, PNG ou GIF.";
+                echo "Format d'image non autorisé. Veuillez choisir un fichier JPG, JPEG, PNG ou GIF.";
                 exit();
             }
 
@@ -32,17 +36,17 @@ require_once(__DIR__ . "/views/header.php");
 
             // Vérification MIME
             if ($imageInfo === false) {
-                echo "Le fichier n’est pas une image valide.";
+                echo "Le fichier n'est pas une image valide.";
                 exit();
             }
 
             // Renommage sécurisé
-            $newFileName = uniqid('quiz_') . '.' . $fileExtension;
+            $newFileName = uniqid('quiz_img_') . '.' . $fileExtension;
             $uploadPath = $uploadDir . $newFileName;
 
             // Enregistrement du fichier
             if (!move_uploaded_file($_FILES['quiz_image']['tmp_name'], $uploadPath)) {
-                echo "Erreur lors de l’upload de l’image.";
+                echo "Erreur lors de l'upload de l'image.";
                 exit();
             }
 
