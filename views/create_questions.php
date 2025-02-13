@@ -20,21 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             htmlspecialchars($_POST['answer3']),
             htmlspecialchars($_POST['answer4'])
         ];
-        $correctAnswer = (int) $_POST['correct_answer']; // Index de la bonne réponse
+        $correctAnswer = (int) $_POST['correct_answer'];
 
-        // ✅ INSÉRER LA QUESTION
         $stmt = $pdo->prepare("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)"); // Remplace "text" par le vrai nom de ta colonne
         $stmt->execute([$quizId, $questionText]);
-        $questionId = $pdo->lastInsertId(); // Récupérer l'ID de la question
+        $questionId = $pdo->lastInsertId(); 
 
-        // ✅ INSÉRER LES 4 RÉPONSES
         $stmt = $pdo->prepare("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");
         for ($i = 0; $i < 4; $i++) {
-            $isCorrect = ($i === $correctAnswer) ? 1 : 0; // 1 si c'est la bonne réponse, sinon 0
+            $isCorrect = ($i === $correctAnswer) ? 1 : 0; 
             $stmt->execute([$questionId, $answers[$i], $isCorrect]);
         }
 
-        // ✅ Passer à la question suivante
         $_SESSION['current_question']++;
 
         if ($_SESSION['current_question'] > $numQuestions) {
