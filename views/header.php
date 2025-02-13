@@ -42,7 +42,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 
         <article class="nav-link">
             <ul>
-                <li><a href="#" aria-label="Accéder aux quiz">Quiz</a></li>
+                <li><a href="dashboard.php" aria-label="Accéder aux quiz">Quiz</a></li>
                 <li><a href="#" aria-label="Accéder aux scores">Scores</a></li>
                 <?php if (isset($_SESSION["username"])) : ?>
                     <li><a href="#" 

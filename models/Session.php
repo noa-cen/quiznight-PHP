@@ -21,7 +21,7 @@ class Session
     {
         session_unset();
         session_destroy();
-        header("Location: /projets/quiz_night/index.php");
+        header("Location: /quiznight-PHP/index.php");
         exit();
     }
 }

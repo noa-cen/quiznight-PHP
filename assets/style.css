@@ -103,6 +103,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: center;
     align-items: center;
     padding: 24px 40px;
     border-radius: 10px;
@@ -288,4 +289,18 @@ footer {
             font-size: 12pt;
         }
     }
+}
+
+
+/* DASHBOARD (quizzes)____________________________________________________________________________________________________ */
+
+.form-container{
+    padding-top: 50px;
+    justify-self: center;
+    width: 450px;
+    height: auto;
+    align-self: center;
+    justify-content: center;
+
+
 }
