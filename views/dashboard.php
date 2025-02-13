@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "QuizNight ! - Dashboard";
-require_once 'views/header.php';
+require_once 'header.php';
 
 
 // Récupérer tous les quiz

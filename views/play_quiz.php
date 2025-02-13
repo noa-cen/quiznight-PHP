@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "QuizNight ! - Jouer au Quiz";
-require_once 'views/header.php';
+require_once 'header.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: user_login.php"); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté

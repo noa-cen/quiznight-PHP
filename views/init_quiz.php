@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "QuizNight ! - Accueil";
-require_once 'views/header.php';
+require_once 'header.php';
 require_once 'models/User.php';
 
 if (!isset($_SESSION['user_id'])) { 
