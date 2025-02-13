@@ -3,9 +3,11 @@ $pageTitle = "QuizNight ! - Accueil";
 require_once 'views/header.php';
 require_once 'models/User.php';
 
-if (!isset($_SESSION['user_id'])) {
-    die("Erreur : Aucun utilisateur connecté.");
+if (!isset($_SESSION['user_id'])) { 
+    header("Location: views/user_login.php"); // Redirige vers la page de connexion
+    exit(); // Assure-toi que le script s'arrête ici après la redirection
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
