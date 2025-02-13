@@ -20,6 +20,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         if ($loggedUser) {
             $_SESSION['user_id'] = $loggedUser['id'];
             $_SESSION['username'] = $loggedUser['username'];
+            $_SESSION['success'] = "Tu es connecté.e, à toi de jouer !";
             header("Location: ../index.php");
             exit;
         } else {
@@ -35,7 +36,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     <?php if (!empty($errors)): ?>
         <ul>
             <?php foreach ($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
+                <li class="message error"><?= htmlspecialchars($error) ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
@@ -43,6 +44,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     <form action="user_login.php" method="post" class="form">
         <h2>Connexion !</h2>
             <section class="form-body">
+                
                 <article class="form-items">
                 <label for="email">Email :</label>
                 <input type="email" name="email" required>
