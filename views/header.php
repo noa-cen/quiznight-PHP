@@ -28,7 +28,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
     
     <link rel="stylesheet" href="/quiznight-PHP/assets/style.css?v=<?php echo time(); ?>">
-    <link rel="icon" href="assets\img\favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/quiznight-PHP/assets/img/favicon.ico" type="image/x-icon">
     <title><?php echo $pageTitle; ?></title>
 </head>
 <body>

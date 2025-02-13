@@ -26,16 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
-</head>
-<body>
-    <h2>Inscription</h2>
+<main>
     <?php if (!empty($errors)): ?>
         <ul>
             <?php foreach ($errors as $error): ?>
@@ -44,18 +35,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
     <?php endif; ?>
 
-    <form action="user_register.php" method="post">
-        <label for="username">Nom d'utilisateur :</label>
-        <input type="text" name="username" required>
+    <form action="user_register.php" method="post" class="form">
+    <h2>Inscription !</h2>
+        <section class="form-body">
+            <article class ="form-items">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" name="username" required>
+            </article>
 
-        <label for="email">Email :</label>
-        <input type="email" name="email" required>
+            <article class ="form-items">
+            <label for="email">Email :</label>
+            <input type="email" name="email" required>
+            </article>
 
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="password" required>
-        <small>8 caractères minimum, 1 majuscule et 1 chiffre.</small>
+            <article class ="form-items">
+            <label for="password">Mot de passe :</label>
+            <input type="password" name="password" required>
+            <p>8 caractères minimum, 1 majuscule et 1 chiffre.</p>
+            </article>
 
-        <button type="submit">S'inscrire</button>
+            <button type="submit" class="button">S'inscrire</button>
+        </section>
     </form>
-</body>
-</html>
+</main>
+<?php require_once 'footer.php';?>

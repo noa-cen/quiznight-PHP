@@ -30,28 +30,32 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         }
     }
 }
-
 ?>
+<main>
+    <?php if (!empty($errors)): ?>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-        <h2>Connexion</h2>
-        <?php if (!empty($errors)): ?>
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+    <form action="user_login.php" method="post" class="form">
+        <h2>Connexion !</h2>
+            <section class="form-body">
+                <article class="form-items">
+                <label for="email">Email :</label>
+                <input type="email" name="email" required>
+                </article>
 
-        <form action="user_login.php" method="post">
-            <label for="email">Email :</label>
-            <input type="email" name="email" required>
-            
-            <label for="password">Mot de passe :</label>
-            <input type="password" name="password" required>
+                <article class="form-items">
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" required>
+                </article>
 
-            <button type="submit">Se connecter</button>
-        </form>
-
-        <a href="user_register.php" class="register-link">Pas encore inscrit ? C'est ici !</a>
-    </body>
-</html>
+                <button type="submit" class="button">Se connecter</button>
+                <a href="user_register.php">Pas encore inscrit ? C'est ici !</a>
+            </section>
+     </form>
+ </main>
+ <?php require_once 'footer.php';?>
