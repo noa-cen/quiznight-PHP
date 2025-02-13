@@ -7,8 +7,12 @@ if (!isset($_SESSION['user_id'])) {
     die("Accès refusé !");
 }
 
-$user = new User();
+if (isset($_SESSION['success'])) {
+    echo '<p class="message success">' . htmlspecialchars($_SESSION['success']) . '</p>';
+    unset($_SESSION['success']);
+}
 
+$user = new User();
 $userId = $_SESSION['user_id'];
 
 $stmt = $user->getPdo()->prepare("SELECT username, email FROM users WHERE id = ?");
@@ -26,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user->setUsername($newUsername);
         if ($user->update($userId)) {
             $_SESSION['username'] = $newUsername;
-            header("Location: update_user.php"); 
+            $_SESSION['success'] = "Ton username a bien été modifié !";
+            header("Location: user_update.php"); 
             exit;
         } else {
             echo "Erreur lors de la mise à jour.";

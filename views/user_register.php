@@ -3,7 +3,13 @@
 $pageTitle = "QuizNight ! - Inscription";
 require_once "header.php";
 require_once  '../models/User.php';
+
 $errors = [];
+
+if (isset($_SESSION['success'])) {
+    echo '<p class="message success">' . htmlspecialchars($_SESSION['success']) . '</p>';
+    unset($_SESSION['success']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -18,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user->setPassword($password);
 
         if ($user->register()) {
+            $_SESSION['success'] = "Compte créé, identifiez-vous pour jouer !";  
             header("Location: user_login.php"); 
             exit;
         }
@@ -30,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if (!empty($errors)): ?>
         <ul>
             <?php foreach ($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
+                <li class="error"><?= htmlspecialchars($error) ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
