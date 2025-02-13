@@ -20,21 +20,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             htmlspecialchars($_POST['answer3']),
             htmlspecialchars($_POST['answer4'])
         ];
-        $correctAnswer = (int) $_POST['correct_answer']; // Index de la bonne réponse
+        $correctAnswer = (int) $_POST['correct_answer']; 
 
-        // ✅ INSÉRER LA QUESTION
-        $stmt = $pdo->prepare("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)"); // Remplace "text" par le vrai nom de ta colonne
+       
+        $stmt = $pdo->prepare("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)"); 
         $stmt->execute([$quizId, $questionText]);
-        $questionId = $pdo->lastInsertId(); // Récupérer l'ID de la question
-
-        // ✅ INSÉRER LES 4 RÉPONSES
+        $questionId = $pdo->lastInsertId(); 
+        
         $stmt = $pdo->prepare("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");
         for ($i = 0; $i < 4; $i++) {
-            $isCorrect = ($i === $correctAnswer) ? 1 : 0; // 1 si c'est la bonne réponse, sinon 0
+            $isCorrect = ($i === $correctAnswer) ? 1 : 0; 
             $stmt->execute([$questionId, $answers[$i], $isCorrect]);
         }
 
-        // ✅ Passer à la question suivante
         $_SESSION['current_question']++;
 
         if ($_SESSION['current_question'] > $numQuestions) {
@@ -53,31 +51,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
     <form action="" method="POST" class="form">
         <h2>Question <?php echo $currentQuestion; ?></h2>
+            <section class="form-body">
 
-        <label class="form-question">Texte de la question :</label>
-        <input type="text" name="question" required class="form-question">
+            <article class="form-items">
+            <label class="form-question">Question :</label>
+            <input type="text" name="question" required class="form-question">
+            </article>
 
-        <label class="form-question">Réponse 1 :</label>
-        <input type="text" class="form-question" name="answer1" required>
+            <article class="form-items">
+            <label class="form-question">Réponse 1 :</label>
+            <input type="text" class="form-question" name="answer1" required>
+            </article>
 
-        <label class="form-question">Réponse 2 :</label>
-        <input class="form-question" type="text" name="answer2" required>
+            <article class="form-items">
+            <label class="form-question">Réponse 2 :</label>
+            <input class="form-question" type="text" name="answer2" required>
+            </article>
 
-        <label class="form-question">Réponse 3 :</label>
-        <input type="text" class="form-question" name="answer3" required>
+            <article class="form-items">
+            <label class="form-question">Réponse 3 :</label>
+            <input type="text" class="form-question" name="answer3" required>
+            </article>
 
-        <label class="form-question">Réponse 4 :</label>
-        <input type="text" name="answer4" required class="form-question">
+            <article class="form-items">
+            <label class="form-question">Réponse 4 :</label>
+            <input type="text" name="answer4" required class="form-question">
+            </article>
 
-        <label class="form-question" >Réponse correcte :</label>
-        <select name="correct_answer" required class="button">
-            <option value="0">Réponse 1</option>
-            <option value="1">Réponse 2</option>
-            <option value="2">Réponse 3</option>
-            <option value="3">Réponse 4</option>
-        </select>
+            <article class="form-items">
+            <label class="form-question" >Réponse correcte :</label>
+            <select name="correct_answer" required class="button">
+                <option value="0">Réponse 1</option>
+                <option value="1">Réponse 2</option>
+                <option value="2">Réponse 3</option>
+                <option value="3">Réponse 4</option>
+            </select>
+            </article>
 
-        <button type="submit" class="button">Valider la question</button>
+            <button type="submit" class="form-question button">Valider la question</button>
+        </section>
     </form>
 </main>
 
