@@ -35,6 +35,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: "Roboto", serif;
+    gap: 30px;
 }
 
 main {
@@ -42,7 +43,6 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 24px;
 }
 
 /* Button */
@@ -93,6 +93,10 @@ main {
     100% {
       transform: translateY(0);
     }
+}
+
+input{
+    color:black;
 }
 
 /* Form */
@@ -146,6 +150,8 @@ main {
         label {
             margin: 8px 0 4px;
         }
+
+        
     }
 
     .form-question {
@@ -162,6 +168,9 @@ main {
             padding: 4px;
             margin-top: 4px;
             color: var(--primary);
+        }
+        button{
+            color: black;
         }
     }
 
@@ -258,7 +267,7 @@ header {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 20px;
 
         h2 {
             font-family: "Henny Penny", serif;
@@ -301,6 +310,56 @@ footer {
     height: auto;
     align-self: center;
     justify-content: center;
-
-
 }
+
+.quiz-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.quiz-card {
+    width: 200px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+.quiz-card:hover {
+    transform: scale(1.05);
+}
+.quiz-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.quiz-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.quiz-title {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.create-quiz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    min-height: 200px;
+    min-width: 200px;
+    background-image: url(../assets/img/favicon.ico);
+    background-repeat: no-repeat;
+    background-position:right;
+
+    p{
+        padding-right: 35px;
+    }
+    
+}
+
