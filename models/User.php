@@ -14,6 +14,11 @@ class User {
     }
 
     //SETTERS
+
+    public function getPdo() {
+        return $this->pdo;
+    }
+
     public function setUsername(string $username): void {
         $this->username = htmlspecialchars(trim($username));
     }
@@ -93,13 +98,14 @@ class User {
 
     //UPDATE
     public function update(int $id):bool{
-        $stmt = $this->pdo->prepare("UPDATE users SET username = :username, email = :email WHERE id = :id");
+        
+        $stmt = $this->pdo->prepare("UPDATE users SET username = :username WHERE id = :id");
         return $stmt->execute([
             ':id' => $id,
             ':username' => $this->username,
-            ':email' => $this->email
         ]);
     }
+    
 
     //DELETE
     public function delete(int $id): bool {

@@ -1,7 +1,7 @@
 <?php
 
-require_once "C:\wamp64\www\quiznight-PHP\models\DatabaseConnection.php";
-require_once "C:\wamp64\www\quiznight-PHP\models/Session.php";
+require_once "C:/wamp64/www/quiznight-PHP/models/DatabaseConnection.php";
+require_once "C:/wamp64/www/quiznight-PHP/models/Session.php";
 
 $connexion = new DatabaseConnection; 
 $pdo = $connexion->getPdo();
@@ -45,7 +45,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
                 <li><a href="#" aria-label="Accéder aux quiz">Quiz</a></li>
                 <li><a href="#" aria-label="Accéder aux scores">Scores</a></li>
                 <?php if (isset($_SESSION["username"])) : ?>
-                    <li><a href="#" 
+                    <li><a href="views\user_update.php" 
                 aria-label="Accéder à mon compte"><?php echo $_SESSION["username"] ?></a></li>
                 <li class="connection"><a href="?action=logout" 
                 aria-label="Me déconnecter">Me déconnecter</a></li>
