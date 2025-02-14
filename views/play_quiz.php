@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if (!isset($_SESSION['score'])) {
+    $_SESSION['score'] = 0;
+}
+
 if (!isset($_GET['id'])) {
     die("Quiz introuvable.");
 }

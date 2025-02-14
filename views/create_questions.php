@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "QuizNight ! - Ajouter Questions";
 require_once(__DIR__ . "/../views/header.php");
+require_once(__DIR__ . "/../models/Question.php");
 
 if (!isset($_SESSION['quiz_id'], $_SESSION['num_questions'], $_SESSION['current_question'])) {
     header("Location: index.php");
@@ -22,26 +23,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         $correctAnswer = (int) $_POST['correct_answer'];
 
-        $stmt = $pdo->prepare("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)"); // Remplace "text" par le vrai nom de ta colonne
-        $stmt->execute([$quizId, $questionText]);
-        $questionId = $pdo->lastInsertId(); 
+        // Utilisation de la classe Question pour ajouter la question et ses réponses
+        $question = new Question();
+        $question->addQuestion($quizId, $questionText, $answers, $correctAnswer);
 
-        $stmt = $pdo->prepare("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");
-        for ($i = 0; $i < 4; $i++) {
-            $isCorrect = ($i === $correctAnswer) ? 1 : 0; 
-            $stmt->execute([$questionId, $answers[$i], $isCorrect]);
-        }
-
+        // Incrémenter le compteur de questions en session
         $_SESSION['current_question']++;
 
+        // Si toutes les questions sont ajoutées, rediriger vers le dashboard
         if ($_SESSION['current_question'] > $numQuestions) {
             echo "Le quiz a été créé avec succès !";
             header("Location: dashboard.php");
             exit();
         }
-
-        
-        exit();
     }
 }
 ?>
@@ -71,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" name="answer4" required class="form-question">
             </article>
             <article class="form-items">
-                <label class="form-question" >Réponse correcte :</label>
+                <label class="form-question">Réponse correcte :</label>
                 <select name="correct_answer" required class="button">
                     <option value="0">Réponse 1</option>
                     <option value="1">Réponse 2</option>
