@@ -1,11 +1,11 @@
 <?php
 $pageTitle = "QuizNight ! - Accueil";
 require_once 'header.php';
-require_once 'models/User.php';
+require_once '../models/User.php';
 
 if (!isset($_SESSION['user_id'])) { 
-    header("Location: views/user_login.php"); // Redirige vers la page de connexion
-    exit(); // Assure-toi que le script s'arrête ici après la redirection
+    header("Location: user_login.php"); 
+    exit(); 
 }
 
 
@@ -17,60 +17,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quizName = trim(htmlspecialchars($_POST['quiz_name']));
         $numQuestions = (int) $_POST['num_questions'];
 
-        // Vérification du nombre de questions
         if ($numQuestions < 1) {
             die("Erreur : Le nombre de questions doit être d'au moins 1.");
         }
 
-        // Vérification que le nom du quiz est unique
         $stmt = $pdo->prepare("SELECT id FROM quizzes WHERE name = ?");
         $stmt->execute([$quizName]);
         if ($stmt->rowCount() > 0) {
             die("Erreur : Ce nom de quiz est déjà pris, veuillez en choisir un autre.");
         }
 
-        // Gestion de l'upload d'image
-        $uploadDir = 'uploads/';
+        $uploadDir = __DIR__ . '/../uploads/';
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-        $maxFileSize = 2 * 1024 * 1024; // 2 Mo
+        $maxFileSize = 2 * 1024 * 1024; 
 
         $fileExtension = strtolower(pathinfo($_FILES['quiz_image']['name'], PATHINFO_EXTENSION));
         $imageInfo = getimagesize($_FILES['quiz_image']['tmp_name']);
 
-        // Vérification du format
         if (!in_array($fileExtension, $allowedExtensions)) {
             die("Format d'image non autorisé. Veuillez choisir un fichier JPG, JPEG, PNG ou GIF.");
         }
 
-        // Vérification de la taille
         if ($_FILES['quiz_image']['size'] > $maxFileSize) {
             die("Fichier trop volumineux. Taille maximale autorisée : 2 Mo.");
         }
 
-        // Vérification MIME
         if ($imageInfo === false) {
             die("Le fichier n'est pas une image valide.");
         }
 
-        // Renommage sécurisé
         $newFileName = uniqid('quiz_img_') . '.' . $fileExtension;
         $uploadPath = $uploadDir . $newFileName;
 
-        // Enregistrement du fichier
         if (!move_uploaded_file($_FILES['quiz_image']['tmp_name'], $uploadPath)) {
             die("Erreur lors de l'upload de l'image.");
         }
 
         $createdBy = $_SESSION['user_id'];
 
-        // Vérifie que l'utilisateur existe dans la base
         $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ?");
         $stmt->execute([$createdBy]);
         if ($stmt->rowCount() == 0) {
             die("Erreur : L'utilisateur n'existe pas.");
         }
 
-        // Insertion du quiz
         $stmt = $pdo->prepare("INSERT INTO quizzes (name, image, num_questions, created_by) VALUES (?, ?, ?, ?)");
         if ($stmt->execute([$quizName, $newFileName, $numQuestions, $createdBy])) {
             $quizId = $pdo->lastInsertId();
@@ -88,23 +78,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-<form action="" method="POST" class="form" enctype="multipart/form-data">
-    <div class="form-items">
-        <label>Nom du quiz :</label>
-        <input type="text" name="quiz_name" required>
-    </div>
-    <div class="form-items">
-        <label>Image du quiz :</label>
-        <input type="file" name="quiz_image" accept="image/*" required>
-    </div>
-    <div class="form-items">
-        <label>Nombre de questions :</label>
-        <input type="number" name="num_questions" min="1" required>
-    </div>
-    <div class="form-items">
-        <button type="submit">Créer le quiz</button>
-    </div>
-</form>
-
-<?php require_once(__DIR__ . "/views/footer.php"); ?>
+    <main>
+    <form action="" method="POST" class="form" enctype="multipart/form-data">
+        <h2>Créé ton quizz !</h2>
+        <section class="form-body">
+            <article class="form-items">
+                <label>Nom du quiz :</label>
+                <input type="text" name="quiz_name" required>
+            </article>
+            <article class="form-items">
+                <label>Image du quiz :</label>
+                <input type="file" name="quiz_image" accept="image/*" required>
+            </article>
+            <article class="form-items">
+                <label>Nombre de questions :</label>
+                <input type="number" name="num_questions" min="1" required>
+            </article>
+            <article class="form-items">
+                <button type="submit" class="button">Créer le quiz</button>
+            </article>
+        </section>
+    </form>
+</main>
+<?php require_once 'footer.php'; ?>
