@@ -7,7 +7,6 @@ if (isset($_SESSION['success'])) {
     echo '<p class="message success">' . htmlspecialchars($_SESSION['success']) . '</p>';
     unset($_SESSION['success']); 
 }
-
 ?>
 
 <main>
@@ -18,8 +17,7 @@ if (isset($_SESSION['success'])) {
             <p>Saurez-vous relever le défi ?</p> 
 
             <article class="button jump">
-                <a href="#" 
-                aria-label="Accéder à la page quiz">Prêt à jouer ?</a>
+                <a href="views/dashboard.php" aria-label="Accéder à la page quiz">Prêt à jouer ?</a>
             </article>
         </article>
 
@@ -27,17 +25,4 @@ if (isset($_SESSION['success'])) {
     </section>
 </main>
 
-<?php 
-require_once 'views\footer.php'; 
-?>
-</body>
-
-<!-- <script>
-    const menuHamburger = document.querySelector("#menu-hamburger")
-    const navLinks = document.querySelector(".nav-link")
-
-    menuHamburger.addEventListener("click",()=>{
-    navLinks.classList.toggle("mobile-menu")
-    })
-</script> -->
-</html>
+<?php require_once 'views\footer.php'; ?>

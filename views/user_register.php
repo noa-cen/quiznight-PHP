@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
     <?php endif; ?>
 
+    <main>
+
     <form action="user_register.php" method="post" class="form">
     <h2>Inscription !</h2>
         <section class="form-body">
