@@ -35,13 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['current_question']++;
 
         if ($_SESSION['current_question'] > $numQuestions) {
-            session_unset();
-            session_destroy();
             echo "Le quiz a été créé avec succès !";
+            header("Location: dashboard.php");
             exit();
         }
 
-        header("Location: dashboard.php");
+        
         exit();
     }
 }
