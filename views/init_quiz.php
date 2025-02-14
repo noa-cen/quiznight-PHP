@@ -4,7 +4,7 @@ require_once 'header.php';
 require_once '../models/User.php';
 
 if (!isset($_SESSION['user_id'])) { 
-    header("Location: views/user_login.php"); 
+    header("Location: user_login.php"); 
     exit(); 
 }
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Erreur : Ce nom de quiz est déjà pris, veuillez en choisir un autre.");
         }
 
-        $uploadDir = 'uploads/';
+        $uploadDir = __DIR__ . '/../uploads/';
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         $maxFileSize = 2 * 1024 * 1024; 
 

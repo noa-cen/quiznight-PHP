@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "QuizNight ! - Dashboard";
-require_once 'header.php';
+require_once "header.php";
 
 
 $stmt = $pdo->query("SELECT id, name, image FROM quizzes");
@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
             <?php foreach ($quizzes as $quiz) : ?>
                 <article class="quiz-card">
                     <a href="play_quiz.php?id=<?= $quiz['id'] ?>">
-                        <img src="uploads/<?= htmlspecialchars($quiz['image']) ?>" alt="<?= htmlspecialchars($quiz['name']) ?>">
+                        <img src="/quiznight-PHP/uploads/<?= htmlspecialchars($quiz['image']) ?>" alt="<?= htmlspecialchars($quiz['name']) ?>">
                         <div class="quiz-title"><?= htmlspecialchars($quiz['name']) ?></div>
                     </a>
             </article>

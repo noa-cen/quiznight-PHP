@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "QuizNight ! - Ajouter Questions";
-require_once(__DIR__ . "/views/header.php");
+require_once(__DIR__ . "/../views/header.php");
 
 if (!isset($_SESSION['quiz_id'], $_SESSION['num_questions'], $_SESSION['current_question'])) {
     header("Location: index.php");
@@ -50,32 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
     <form action="" method="POST" class="form">
         <h2>Question <?php echo $currentQuestion; ?></h2>
-
-        <label class="form-question">Texte de la question :</label>
-        <input type="text" name="question" required class="form-question">
-
-        <label class="form-question">Réponse 1 :</label>
-        <input type="text" class="form-question" name="answer1" required>
-
-        <label class="form-question">Réponse 2 :</label>
-        <input class="form-question" type="text" name="answer2" required>
-
-        <label class="form-question">Réponse 3 :</label>
-        <input type="text" class="form-question" name="answer3" required>
-
-        <label class="form-question">Réponse 4 :</label>
-        <input type="text" name="answer4" required class="form-question">
-
-        <label class="form-question" >Réponse correcte :</label>
-        <select name="correct_answer" required class="button">
-            <option value="0">Réponse 1</option>
-            <option value="1">Réponse 2</option>
-            <option value="2">Réponse 3</option>
-            <option value="3">Réponse 4</option>
-        </select>
-
-        <button type="submit" class="button">Valider la question</button>
+        <section class="form-body">
+            <article class="form-items">
+                <label class="form-question">Texte de la question :</label>
+                <input type="text" name="question" required class="form-question">
+            </article>
+            <article class="form-items">
+                <label class="form-question">Réponse 1 :</label>
+                <input type="text" class="form-question" name="answer1" required>
+            </article>
+            <article class="form-items">
+                <label class="form-question">Réponse 2 :</label>
+                <input class="form-question" type="text" name="answer2" required>
+            </article>
+            <article class="form-items">
+                <label class="form-question">Réponse 3 :</label>
+                <input type="text" class="form-question" name="answer3" required>
+            </article>
+            <article class="form-items">
+                <label class="form-question">Réponse 4 :</label>
+                <input type="text" name="answer4" required class="form-question">
+            </article>
+            <article class="form-items">
+                <label class="form-question" >Réponse correcte :</label>
+                <select name="correct_answer" required class="button">
+                    <option value="0">Réponse 1</option>
+                    <option value="1">Réponse 2</option>
+                    <option value="2">Réponse 3</option>
+                    <option value="3">Réponse 4</option>
+                </select>
+            </article>
+            <article class="form-items">
+                <button type="submit" class="button">Valider la question</button>
+            </article>
+        </section>
     </form>
 </main>
 
-<?php require_once(__DIR__ . "/views/footer.php"); ?>
+<?php require_once(__DIR__ . "/../views/footer.php"); ?>
