@@ -24,7 +24,7 @@ if (!$currentUser) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $newUsername = trim($_POST['username']);
+    $newUsername = trim($_POST['new_username']);
 
     try {
         $user->setUsername($newUsername);
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: user_update.php"); 
             exit;
         } else {
-            echo "Erreur lors de la mise à jour.";
+            $error[]= "Erreur lors de la mise à jour.";
         }
     } catch (Exception $e) {
         echo "Erreur : " . $e->getMessage();
@@ -44,6 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <main>
+
+<?php if (!empty($errors)): ?>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li class="error"><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+
     <form method="POST" action="" class="form">
     <h2>Mon compte !</h2>
         <section class="form-body">
@@ -59,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <article class="form-items">
             <label for="username">Nouveau username :</label>
-            <input type="text" name="username" value="" required>
+            <input type="text" name="new_username" value="" required>
             </article>
 
             <button type="submit" class="button">Mettre à jour</button>
