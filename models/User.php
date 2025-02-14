@@ -2,22 +2,16 @@
 
 require_once "DatabaseConnection.php";
 
-class User {
-    private $pdo;
+class User extends DatabaseConnection{
     private string $username;
     private string $email;
     private string $password;
 
     public function __construct(){
-        $db = new DatabaseConnection();
-        $this->pdo = $db->getPdo();
+        parent::__construct();
     }
 
     //SETTERS
-
-    public function getPdo() {
-        return $this->pdo;
-    }
 
     public function setUsername(string $username): void {
         $this->username = htmlspecialchars(trim($username));
@@ -56,13 +50,13 @@ class User {
     //Verification exists
 
     public function emailExists(string $email): bool {
-        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt = $this->getPdo()->prepare("SELECT id FROM users WHERE email = ?");
         $stmt->execute([$email]);
         return $stmt->fetch() ? true : false;
     }
 
     public function userExists(string $username): bool {
-        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt = $this->getPdo()->prepare("SELECT id FROM users WHERE username = ?");
         $stmt->execute([$username]);
         return $stmt->fetch() ? true : false;
     }
@@ -75,7 +69,7 @@ class User {
         if ($this->userExists($this->username)){
                 throw new Exception("Ce username est déjà utilisé !");
             }
-        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+        $stmt = $this->getPdo()->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
         return $stmt->execute([
             ':username' => $this->username,
             ':email' => $this->email,
@@ -85,7 +79,7 @@ class User {
 
     // LOGIN 
     public function login(string $email, string $password): ?array {
-        $stmt = $this->pdo->prepare("SELECT id, username, password FROM users WHERE email = ?");
+        $stmt = $this->getPdo()->prepare("SELECT id, username, password FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -99,7 +93,7 @@ class User {
     //UPDATE
     public function update(int $id):bool{
         
-        $stmt = $this->pdo->prepare("UPDATE users SET username = :username WHERE id = :id");
+        $stmt = $this->getPdo()->prepare("UPDATE users SET username = :username WHERE id = :id");
         return $stmt->execute([
             ':id' => $id,
             ':username' => $this->username,
@@ -109,7 +103,7 @@ class User {
 
     //DELETE
     public function delete(int $id): bool {
-        $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = ?");
+        $stmt = $this->getPdo()->prepare("DELETE FROM users WHERE id = ?");
         return $stmt->execute([$id]);
     }
 }
