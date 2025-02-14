@@ -10,30 +10,49 @@ class Quiz extends DatabaseConnection {
     private $createdBy;
 
     public function __construct() {
-        parent::__construct(); // Appel du constructeur parent pour initialiser PDO
+        parent::__construct();
     }
 
-    // Getters
-    public function getId() { return $this->id; }
-    public function getName() { return $this->name; }
-    public function getImage() { return $this->image; }
-    public function getNumQuestions() { return $this->numQuestions; }
-    public function getCreatedBy() { return $this->createdBy; }
+    // GETTERS
+    public function getId() { 
+        return $this->id; 
+    }
+    public function getName() { 
+        return $this->name; 
+    }
+    public function getImage() { 
+        return $this->image; 
+    }
+    public function getNumQuestions() { 
+        return $this->numQuestions; 
+    }
+    public function getCreatedBy() { 
+        return $this->createdBy; 
+    }
 
-    // Setters
-    public function setName($name) { $this->name = htmlspecialchars(trim($name)); }
-    public function setImage($image) { $this->image = $image; }
-    public function setNumQuestions($numQuestions) { $this->numQuestions = (int) $numQuestions; }
-    public function setCreatedBy($createdBy) { $this->createdBy = (int) $createdBy; }
+    // SETTERS
+    public function setName($name) { 
+        $this->name = htmlspecialchars(trim($name)); 
+    }
+    public function setImage($image) { 
+        $this->image = $image; 
+    }
+    public function setNumQuestions($numQuestions) { 
+        $this->numQuestions = (int) $numQuestions; 
+    }
+    public function setCreatedBy($createdBy) { 
+        $this->createdBy = (int) $createdBy; 
+    }
 
-    // Vérifier si un quiz existe déjà
+
+    // check if it exists
     public function isNameTaken() {
         $stmt = $this->getPdo()->prepare("SELECT id FROM quizzes WHERE name = ?");
         $stmt->execute([$this->name]);
         return $stmt->rowCount() > 0;
     }
 
-    // Enregistrer un quiz en base de données
+    // save the quiz in database
     public function save() {
         if ($this->isNameTaken()) {
             throw new Exception("Ce nom de quiz est déjà pris.");
@@ -48,7 +67,7 @@ class Quiz extends DatabaseConnection {
         }
     }
 
-    // Upload d'image avec validation
+    // Upload images with verification and security
     public static function uploadImage($file) {
         $uploadDir = __DIR__ . '/../uploads/';
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -79,9 +98,9 @@ class Quiz extends DatabaseConnection {
         return $newFileName;
     }
 
-    // Récupérer tous les quizzes
+    // Get all the quizzes
     public static function getAllQuizzes() {
-        $db = new DatabaseConnection(); // On peut aussi utiliser l'héritage ici
+        $db = new DatabaseConnection();
         $pdo = $db->getPdo();
         
         $stmt = $pdo->query("SELECT id, name, image FROM quizzes");

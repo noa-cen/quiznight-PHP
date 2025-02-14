@@ -47,7 +47,7 @@ class User extends DatabaseConnection{
     //CRUD
     
 
-    //Verification exists
+    //check if it exists
 
     public function emailExists(string $email): bool {
         $stmt = $this->getPdo()->prepare("SELECT id FROM users WHERE email = ?");

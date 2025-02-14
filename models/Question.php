@@ -6,14 +6,13 @@ class Question extends DatabaseConnection {
     private $quiz_id;
     private $question_text;
 
-    // Constructeur : initialisation des attributs
     public function __construct($quizId = null, $questionText = null) {
-        parent::__construct(); // Appel au constructeur de DatabaseConnection
+        parent::__construct(); 
         $this->quiz_id = $quizId;
         $this->question_text = $questionText;
     }
 
-    // Getters
+    // GETTERS
     public function getQuizId() {
         return $this->quiz_id;
     }
@@ -22,7 +21,7 @@ class Question extends DatabaseConnection {
         return $this->question_text;
     }
 
-    // Setters
+    // SETTERS
     public function setQuizId($quizId) {
         $this->quiz_id = $quizId;
     }
@@ -31,16 +30,16 @@ class Question extends DatabaseConnection {
         $this->question_text = $questionText;
     }
 
-    // Ajouter une question
+    //CRUD
+
+    //CREATE
     public function addQuestion($quizId, $questionText, $answers, $correctAnswer) {
-        // Préparer la requête pour ajouter la question dans la base de données
         $stmt = $this->getPdo()->prepare("INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)");
         $stmt->execute([$quizId, $questionText]);
 
-        // Récupérer l'ID de la dernière question insérée
         $questionId = $this->getPdo()->lastInsertId();
 
-        // Ajouter les réponses de la question
+        // Connect the answers to the questions
         foreach ($answers as $index => $answer) {
             $isCorrect = ($index === $correctAnswer) ? 1 : 0;
             $stmt = $this->getPdo()->prepare("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");

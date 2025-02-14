@@ -23,14 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         $correctAnswer = (int) $_POST['correct_answer'];
 
-        // Utilisation de la classe Question pour ajouter la question et ses réponses
         $question = new Question();
         $question->addQuestion($quizId, $questionText, $answers, $correctAnswer);
 
-        // Incrémenter le compteur de questions en session
+        // Incrementation
         $_SESSION['current_question']++;
 
-        // Si toutes les questions sont ajoutées, rediriger vers le dashboard
         if ($_SESSION['current_question'] > $numQuestions) {
             echo "Le quiz a été créé avec succès !";
             header("Location: dashboard.php");
