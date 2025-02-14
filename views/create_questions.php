@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Utilisation de la classe Question pour ajouter la question et ses réponses
         $question = new Question();
-        $question->addQuestion($quizId, $questionText, $answers, $correctAnswer);
+        $question->create($quizId, $questionText, $answers, $correctAnswer);
 
         // Incrémenter le compteur de questions en session
         $_SESSION['current_question']++;
