@@ -2,11 +2,6 @@
 $pageTitle = "QuizNight ! - Jouer au Quiz";
 require_once 'header.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: user_login.php"); 
-    exit();
-}
-
 if (!isset($_SESSION['score'])) {
     $_SESSION['score'] = 0;
 }
@@ -40,8 +35,6 @@ if ($currentQuestionIndex >= count($questions)) {
     if (!empty($userId)) {
         $stmt = $pdo->prepare("INSERT INTO user_scores (user_id, quiz_id, score, completed_at) VALUES (?, ?, ?, NOW())");
         $stmt->execute([$userId, $quizId, $score]);
-    } else {
-        die("Erreur : utilisateur non connecté.");
     }
 
     

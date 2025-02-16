@@ -1,9 +1,15 @@
 <?php 
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: user_login.php");
+    exit();
+}
+
 $pageTitle = "Modifier le Quiz";
 require_once(__DIR__ . "/../views/header.php");
 require_once(__DIR__ . "/../models/Quiz.php");
 require_once(__DIR__ . "/../models/Question.php");
-
 
 $quizId = $_GET['quiz_id'] ?? null;
 if (!$quizId) {
@@ -15,6 +21,12 @@ $quiz = new Quiz($quizId);
 $quizDetails = $quiz->getQuizDetails();
 if (!$quizDetails) {
     die("Quiz introuvable.");
+}
+
+// Vérification que le quiz appartient bien à l'utilisateur connecté
+if ($quizDetails['user_id'] !== $_SESSION['user_id']) {
+    header("Location: user_login.php");
+    exit();
 }
 
 $questionObj = new Question();
@@ -40,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['submit_quiz'])) {
 
-        
         $quiz->setName($_POST['name']);
         
         $quiz->setDescription($quizDetails['description'] ?? '');
@@ -128,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <article class="form-items">
                 <label>
                     <input type="checkbox" name="delete_quiz" value="on">
-                    Supprimer ce quiz ????
+                    Supprimer ce quiz ???? 
                 </label>
             </article>
             
