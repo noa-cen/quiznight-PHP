@@ -2,16 +2,15 @@
 $pageTitle = "QuizNight ! - Dashboard";
 require_once "header.php";
 require_once "../models/Quiz.php";
-require_once "../models/Score.php"; // Si tu utilises une classe Score pour les scores
+require_once "../models/Score.php"; 
 
-// Instancier un objet Quiz pour récupérer tous les quiz
 $quizObj = new Quiz();
 $quizzes = $quizObj->getAllQuizzes();
 ?>
 
 <main>
     <h1>Bienvenue sur QuizNight !</h1>
-    <!-- Affichage du dernier score si l'utilisateur est connecté -->
+
     <?php if (isset($_SESSION['user_id'])): ?>
         <?php
         $scoreObj = new Score($_SESSION['user_id']);

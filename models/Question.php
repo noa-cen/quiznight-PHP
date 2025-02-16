@@ -6,9 +6,9 @@ class Question extends DatabaseConnection {
     private $quiz_id;
     private $question_text;
 
-    // Constructeur : initialisation des attributs
+
     public function __construct($id = null, $quizId = null, $questionText = null) {
-        parent::__construct(); // Appel au constructeur de DatabaseConnection
+        parent::__construct();
         $this->id = $id;
         $this->quiz_id = $quizId;
         $this->question_text = $questionText;
@@ -36,13 +36,13 @@ class Question extends DatabaseConnection {
     }
 
     public function update($questionId, $questionText, $answers, $correctAnswer) {
-        // Mise à jour du texte de la question
+   
         $stmt = $this->getPdo()->prepare("UPDATE questions SET question_text = ? WHERE id = ?");
         $stmt->execute([$questionText, $questionId]);
-        // Suppression des réponses existantes
+     
         $stmt = $this->getPdo()->prepare("DELETE FROM answers WHERE question_id = ?");
         $stmt->execute([$questionId]);
-        // Insertion des réponses mises à jour
+    
         foreach ($answers as $index => $answer) {
             $isCorrect = ($index === $correctAnswer) ? 1 : 0;
             $stmt = $this->getPdo()->prepare("INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)");
@@ -52,10 +52,10 @@ class Question extends DatabaseConnection {
 
     
     public function delete($questionId) {
-        // Suppression des réponses associées
+        
         $stmt = $this->getPdo()->prepare("DELETE FROM answers WHERE question_id = ?");
         $stmt->execute([$questionId]);
-        // Suppression de la question
+    
         $stmt = $this->getPdo()->prepare("DELETE FROM questions WHERE id = ?");
         return $stmt->execute([$questionId]);
     }

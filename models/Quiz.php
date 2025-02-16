@@ -9,9 +9,8 @@ class Quiz extends DatabaseConnection {
     private $description;
     private $createdBy;
 
-    // Constructeur : on initialise via DatabaseConnection
     public function __construct($id = null, $name = null, $image = null, $numQuestions = null, $description = null, $createdBy = null) {
-        parent::__construct(); // initialise $this->pdo
+        parent::__construct(); 
         $this->id = $id;
         $this->name = $name;
         $this->image = $image;
@@ -36,14 +35,12 @@ class Quiz extends DatabaseConnection {
     public function setDescription($description) { $this->description = htmlspecialchars(trim($description)); }
     public function setCreatedBy($createdBy) { $this->createdBy = (int)$createdBy; }
 
-    // Vérifier si le nom est déjà pris (pour la création)
     public function isNameTaken() {
         $stmt = $this->getPdo()->prepare("SELECT id FROM quizzes WHERE name = ?");
         $stmt->execute([$this->name]);
         return $stmt->rowCount() > 0;
     }
 
-    // Sauvegarder un quiz
     public function save() {
         if ($this->isNameTaken()) {
             throw new Exception("Ce nom de quiz est déjà pris.");
@@ -57,26 +54,22 @@ class Quiz extends DatabaseConnection {
         }
     }
 
-    // Mettre à jour un quiz existant
     public function update() {
         $stmt = $this->getPdo()->prepare("UPDATE quizzes SET name = ?, image = ?, num_questions = ?, description = ? WHERE id = ?");
         return $stmt->execute([$this->name, $this->image, $this->numQuestions, $this->description, $this->id]);
     }
 
-    // Récupérer tous les quiz
     public function getAllQuizzes() {
         $stmt = $this->getPdo()->query("SELECT id, name, image, num_questions, description, created_by, created_at FROM quizzes");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Récupérer les détails d'un quiz par son ID (basé sur $this->id)
     public function getQuizDetails() {
         $stmt = $this->getPdo()->prepare("SELECT id, name, image, num_questions, description, created_by, created_at FROM quizzes WHERE id = ?");
         $stmt->execute([$this->id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Upload d'image (méthode publique non statique)
     public function uploadImage($file) {
         $uploadDir = __DIR__ . '/../uploads/';
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -98,6 +91,11 @@ class Quiz extends DatabaseConnection {
             throw new Exception("Erreur lors de l'upload de l'image.");
         }
         return $newFileName;
+    }
+
+    public function delete() {
+        $stmt = $this->getPdo()->prepare("DELETE FROM quizzes WHERE id = ?");
+        return $stmt->execute([$this->id]);
     }
 }
 ?>
