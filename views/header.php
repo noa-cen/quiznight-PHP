@@ -43,7 +43,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
         <article class="nav-link">
             <ul>
                 <li><a href= "/quiznight-PHP/views/dashboard.php" aria-label="Accéder aux quiz">Quiz</a></li>
-                <li><a href="#" aria-label="Accéder aux scores">Scores</a></li>
+                <!-- <li><a href="#" aria-label="Accéder aux scores">Scores</a></li> -->
                 <?php if (isset($_SESSION["username"])) : ?>
                     <li><a href="/quiznight-PHP/views/user_update.php" 
                 aria-label="Accéder à mon compte"><?php echo $_SESSION["username"] ?></a></li>

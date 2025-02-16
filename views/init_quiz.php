@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quiz->setNumQuestions($_POST['num_questions']);
         $quiz->setCreatedBy($_SESSION['user_id']);
 
-        $quizImage = Quiz::uploadImage($_FILES['quiz_image']);
+        $quizImage = $quiz->uploadImage($_FILES['quiz_image']);
         $quiz->setImage($quizImage);
 
         $quizId = $quiz->save();

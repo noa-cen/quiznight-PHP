@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         $correctAnswer = (int) $_POST['correct_answer'];
 
+       
         $question = new Question();
-        $question->addQuestion($quizId, $questionText, $answers, $correctAnswer);
+        $question->create($quizId, $questionText, $answers, $correctAnswer);
 
-        // Incrementation
         $_SESSION['current_question']++;
 
         if ($_SESSION['current_question'] > $numQuestions) {

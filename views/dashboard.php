@@ -2,20 +2,21 @@
 $pageTitle = "QuizNight ! - Dashboard";
 require_once "header.php";
 require_once "../models/Quiz.php";
-require_once "../models/Score.php";
+require_once "../models/Score.php"; 
 
-$quizzes = Quiz::getAllQuizzes();
+$quizObj = new Quiz();
+$quizzes = $quizObj->getAllQuizzes();
 ?>
 
 <main>
     <h1>Bienvenue sur QuizNight !</h1>
 
-    <?php if (isset($_SESSION['user_id'])) : ?>
+    <?php if (isset($_SESSION['user_id'])): ?>
         <?php
-        $score = new Score($_SESSION['user_id']);
-        $lastScore = $score->getLastScore();
+        $scoreObj = new Score($_SESSION['user_id']);
+        $lastScore = $scoreObj->getLastScore();
+        if ($lastScore):
         ?>
-        <?php if ($lastScore) : ?>
             <h2>Dernier score : <?= htmlspecialchars($lastScore['score']) ?></h2>
         <?php endif; ?>
     <?php endif; ?>
@@ -27,12 +28,16 @@ $quizzes = Quiz::getAllQuizzes();
             </a>
         </article>
 
-        <?php foreach ($quizzes as $quiz) : ?>
+        <?php foreach ($quizzes as $quiz): ?>
             <article class="quiz-card">
                 <a href="play_quiz.php?id=<?= $quiz['id'] ?>">
                     <img src="/quiznight-PHP/uploads/<?= htmlspecialchars($quiz['image']) ?>" alt="<?= htmlspecialchars($quiz['name']) ?>">
                     <div class="quiz-title"><?= htmlspecialchars($quiz['name']) ?></div>
                 </a>
+                <div class="quiz-actions">
+                    <a href="play_quiz.php?id=<?= $quiz['id'] ?>" class="button play-button">Jouer</a>
+                    <a href="edit_quiz.php?quiz_id=<?= $quiz['id'] ?>" class="button edit-button">Modifier</a>
+                </div>
             </article>
         <?php endforeach; ?>
     </section>
